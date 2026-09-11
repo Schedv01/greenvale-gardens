@@ -73,11 +73,10 @@
     subscription: {
       label: "Garden Maintenance",
       sizes: {
-        small: { label: "Small", meta: "Courtyard / small yard", perVisit: 22 },
-        medium: { label: "Medium", meta: "Average family garden", perVisit: 60 },
-        large: { label: "Large", meta: "Large plot", perVisit: 110 },
+        small: { label: "Small", meta: "Courtyard / small yard", range: [25, 35] },
+        medium: { label: "Medium", meta: "Average family garden", range: [40, 65] },
+        large: { label: "Large", meta: "Large plot", range: [80, 125] },
       },
-      fortnightlyDiscount: 0.95,
     },
   };
 
@@ -223,7 +222,7 @@
     }
 
     if (svc === "subscription") {
-      dynamicFields.appendChild(optionCardGroup("size", "Garden size", RATES.subscription.sizes, (t) => `From £${t.perVisit}/visit`));
+      dynamicFields.appendChild(optionCardGroup("size", "Garden size", RATES.subscription.sizes, (t) => `£${t.range[0]}–£${t.range[1]}/visit`));
       dynamicFields.appendChild(optionCardGroup("frequency", "How often would you like visits?", {
         fortnightly: { label: "Fortnightly", meta: "Spring / summer growing season" },
         monthly: { label: "Monthly", meta: "Quieter autumn / winter upkeep" },
@@ -390,12 +389,10 @@
 
     if (svc === "subscription") {
       if (!a.size || !a.frequency) return null;
-      const perVisit = RATES.subscription.sizes[a.size].perVisit;
-      const discount = a.frequency === "fortnightly" ? RATES.subscription.fortnightlyDiscount : 1;
-      const adjusted = perVisit * discount;
+      const [low, high] = RATES.subscription.sizes[a.size].range;
       return {
-        low: roundTo5(adjusted * 0.9),
-        high: roundTo5(adjusted * 1.15),
+        low,
+        high,
         note: `${RATES.subscription.sizes[a.size].label} garden · ${a.frequency === "fortnightly" ? "Fortnightly" : "Monthly"} visits`,
         perVisit: true,
       };
