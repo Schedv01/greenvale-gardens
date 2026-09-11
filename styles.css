@@ -225,7 +225,7 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 
 .quote-panel-title{ font-size:22px; margin-bottom:var(--space-6); }
 
-.service-select-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-4); }
+.service-select-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4); }
 .service-select-card{
   display:flex; flex-direction:column; align-items:center; gap:var(--space-3); text-align:center;
   background:var(--color-bg); border:2px solid var(--color-border); border-radius:var(--radius-md);
