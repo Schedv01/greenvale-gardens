@@ -12,9 +12,6 @@
   /* ============================================================
      PRICING RATES — UK averages, GBP. Update as your costs change.
   ============================================================ */
-  const BIG_SKIP_COST = 300; // 1 big skip, included automatically where noted below
-  const SKIP_AREA_THRESHOLD = 10; // m² — jobs bigger than this include a skip in the price
-
   const RATES = {
     patio: {
       label: "Patio / Paving",
@@ -74,9 +71,9 @@
       },
     },
     subscription: {
-      label: "Fortnightly Maintenance",
+      label: "Garden Maintenance",
       sizes: {
-        small: { label: "Small", meta: "Courtyard / small yard", perVisit: 35 },
+        small: { label: "Small", meta: "Courtyard / small yard", perVisit: 22 },
         medium: { label: "Medium", meta: "Average family garden", perVisit: 60 },
         large: { label: "Large", meta: "Large plot", perVisit: 110 },
       },
@@ -192,7 +189,7 @@
 
     if (svc === "patio") {
       dynamicFields.appendChild(
-        numberField("area", "Approximate patio size (m²)", "e.g. 18", "Tip: multiply length × width in metres. E.g. 4m × 3m = 12m². Jobs over 10m² include a skip in the price.*")
+        numberField("area", "Approximate patio size (m²)", "e.g. 18", "Tip: multiply length × width in metres. E.g. 4m × 3m = 12m².")
       );
       dynamicFields.appendChild(optionCardGroup("tier", "Which finish?", RATES.patio.tiers, (t) => `From £${t.rate}/m²`));
       dynamicFields.appendChild(toggleField("removal", "Remove an old patio / slabs first?"));
@@ -201,20 +198,20 @@
 
     if (svc === "wall") {
       dynamicFields.appendChild(numberField("length", "Wall length (metres)", "e.g. 8"));
-      dynamicFields.appendChild(numberField("height", "Wall height (metres)", "e.g. 1.2", "Jobs over 10m² of wall face include a skip in the price.*"));
+      dynamicFields.appendChild(numberField("height", "Wall height (metres)", "e.g. 1.2"));
       dynamicFields.appendChild(optionCardGroup("tier", "Wall type", RATES.wall.tiers, (t) => `From £${t.rate}/m²`));
       dynamicFields.appendChild(toggleField("retaining", "Is this a retaining wall (holding back a bank / slope of earth)?"));
     }
 
     if (svc === "steps") {
-      dynamicFields.appendChild(numberField("count", "How many steps do you need?", "e.g. 5", "Includes a skip for the excavated spoil.*"));
+      dynamicFields.appendChild(numberField("count", "How many steps do you need?", "e.g. 5"));
       dynamicFields.appendChild(optionCardGroup("tier", "Material", RATES.steps.tiers, (t) => `From £${t.rate}/step`));
     }
 
     if (svc === "tidy") {
       dynamicFields.appendChild(optionCardGroup("size", "Garden size", RATES.tidy.sizes, (t) => `From £${t.base}`));
       dynamicFields.appendChild(optionCardGroup("condition", "Current condition", RATES.tidy.condition, () => ""));
-      dynamicFields.appendChild(toggleField("waste", "Do you need the green waste taken away?", "Includes a skip in the price.*"));
+      dynamicFields.appendChild(toggleField("waste", "Do you need the green waste taken away?", "Waste disposal isn't included — we'll quote it separately once we know what's involved."));
     }
 
     if (svc === "renovation") {
@@ -350,11 +347,9 @@
       const rate = RATES.patio.tiers[a.tier].rate;
       let base = a.area * rate;
       if (a.removal) base += a.area * RATES.patio.removalPerM2;
-      const includesSkip = a.area > SKIP_AREA_THRESHOLD;
-      if (includesSkip) base += BIG_SKIP_COST;
       if (a.difficultAccess) base *= RATES.patio.difficultAccessMultiplier;
       base = Math.max(base, RATES.patio.minJob);
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.area}m² · ${RATES.patio.tiers[a.tier].label} finish${includesSkip ? " · Includes 1 skip*" : ""}` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.area}m² · ${RATES.patio.tiers[a.tier].label} finish` };
     }
 
     if (svc === "wall") {
@@ -363,19 +358,16 @@
       const rate = RATES.wall.tiers[a.tier].rate;
       let base = area * rate;
       if (a.retaining) base += area * RATES.wall.retainingExtra;
-      const includesSkip = area > SKIP_AREA_THRESHOLD;
-      if (includesSkip) base += BIG_SKIP_COST;
       base = Math.max(base, RATES.wall.minJob);
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${area.toFixed(1)}m² wall face · ${RATES.wall.tiers[a.tier].label}${includesSkip ? " · Includes 1 skip*" : ""}` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${area.toFixed(1)}m² wall face · ${RATES.wall.tiers[a.tier].label}` };
     }
 
     if (svc === "steps") {
       if (!a.count || !a.tier) return null;
       const rate = RATES.steps.tiers[a.tier].rate;
       let base = a.count * rate;
-      base += BIG_SKIP_COST;
       base = Math.max(base, RATES.steps.minJob);
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.count} steps · ${RATES.steps.tiers[a.tier].label} · Includes 1 skip*` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.count} steps · ${RATES.steps.tiers[a.tier].label}` };
     }
 
     if (svc === "tidy") {
@@ -383,8 +375,7 @@
       const base0 = RATES.tidy.sizes[a.size].base;
       const mult = RATES.tidy.condition[a.condition].mult;
       let base = base0 * mult;
-      if (a.waste) base += BIG_SKIP_COST;
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.2), note: `${RATES.tidy.sizes[a.size].label} garden · ${RATES.tidy.condition[a.condition].label}${a.waste ? " · Includes 1 skip*" : ""}` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.2), note: `${RATES.tidy.sizes[a.size].label} garden · ${RATES.tidy.condition[a.condition].label}` };
     }
 
     if (svc === "renovation") {
@@ -394,20 +385,19 @@
       const spread = hi - lo;
       const low = lo + spread * scope.lo;
       const high = lo + spread * scope.hi;
-      return { low: roundTo5(low), high: roundTo5(high), note: `${RATES.renovation.sizes[a.size].label} garden · ${scope.label} · Includes skip hire*` };
+      return { low: roundTo5(low), high: roundTo5(high), note: `${RATES.renovation.sizes[a.size].label} garden · ${scope.label}` };
     }
 
     if (svc === "subscription") {
       if (!a.size || !a.frequency) return null;
       const perVisit = RATES.subscription.sizes[a.size].perVisit;
-      const visits = a.frequency === "fortnightly" ? 2 : 1;
       const discount = a.frequency === "fortnightly" ? RATES.subscription.fortnightlyDiscount : 1;
-      const monthly = perVisit * visits * discount;
+      const adjusted = perVisit * discount;
       return {
-        low: roundTo5(monthly * 0.9),
-        high: roundTo5(monthly * 1.15),
+        low: roundTo5(adjusted * 0.9),
+        high: roundTo5(adjusted * 1.15),
         note: `${RATES.subscription.sizes[a.size].label} garden · ${a.frequency === "fortnightly" ? "Fortnightly" : "Monthly"} visits`,
-        perMonth: true,
+        perVisit: true,
       };
     }
 
@@ -423,7 +413,7 @@
       toStep3Btn.disabled = true;
       return;
     }
-    const suffix = est.perMonth ? "/month" : "";
+    const suffix = est.perVisit ? " per visit" : "";
     estimateValue.textContent = `£${est.low.toLocaleString("en-GB")}–£${est.high.toLocaleString("en-GB")}${suffix}`;
     estimateNote.textContent = est.note;
     toStep3Btn.disabled = false;
@@ -441,7 +431,7 @@
     const svc = state.service;
     const est = state.estimate;
     const label = RATES[svc].label;
-    const suffix = est.perMonth ? "/month" : "";
+    const suffix = est.perVisit ? " per visit" : "";
     summaryBanner.textContent = `${label} — instant estimate: £${est.low.toLocaleString("en-GB")}–£${est.high.toLocaleString("en-GB")}${suffix} (${est.note})`;
     formSubjectField.value = `New ${label} quote request`;
     estimateSummaryField.value = `${label} | Estimate: £${est.low}-£${est.high}${suffix} | ${est.note} | Answers: ${JSON.stringify(state.answers)}`;
@@ -574,7 +564,7 @@
       if (!res.ok) throw new Error("Request failed");
 
       const est = state.estimate;
-      const suffix = est && est.perMonth ? "/month" : "";
+      const suffix = est && est.perVisit ? " per visit" : "";
       successEstimate.textContent = est
         ? `Your instant estimate: £${est.low.toLocaleString("en-GB")}–£${est.high.toLocaleString("en-GB")}${suffix}`
         : "";
