@@ -161,13 +161,6 @@ ul,ol{ margin:0; padding:0; list-style:none; }
   .hero-card{ right:0; }
 }
 
-/* ===================== STATS STRIP ===================== */
-.stats-strip{ background:var(--color-primary-dark); padding:var(--space-8) 0; }
-.stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-6); text-align:center; }
-.stat strong{ display:block; font-family:var(--font-heading); font-size:28px; color:#fff; }
-.stat span{ font-size:13px; color:#BFE3C9; }
-@media (max-width:700px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
-
 /* ===================== SECTIONS ===================== */
 .section{ padding:var(--space-20) 0; }
 .section-muted{ background:var(--color-muted); }
@@ -365,10 +358,10 @@ textarea{ resize:vertical; min-height:100px; }
 .why-list strong{ display:block; color:var(--color-primary-dark); font-size:15.5px; }
 .why-list span{ font-size:14px; color:var(--color-muted-text); }
 
-.testimonial-card{ background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--space-8); box-shadow:var(--shadow-md); }
-.stars{ display:flex; gap:3px; color:#F59E0B; margin-bottom:var(--space-4); }
-.testimonial-card p{ font-size:17px; color:var(--color-text); font-style:italic; }
-.testimonial-name{ font-weight:700; color:var(--color-primary-dark); font-size:14px; }
+.founder-card{ background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--space-8); box-shadow:var(--shadow-md); }
+.founder-quote-mark{ display:inline-flex; color:var(--color-secondary); margin-bottom:var(--space-4); }
+.founder-card p{ font-size:17px; color:var(--color-text); font-style:italic; }
+.founder-name{ font-weight:700; color:var(--color-primary-dark); font-size:14px; }
 
 @media (max-width:900px){ .why-grid{ grid-template-columns:1fr; } }
 
