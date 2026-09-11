@@ -12,6 +12,19 @@
   /* ============================================================
      PRICING RATES — UK averages, GBP. Update as your costs change.
   ============================================================ */
+  const SKIP_SIZES = {
+    small: { label: "Small skip", cost: 200 },
+    medium: { label: "Medium skip", cost: 250 },
+    large: { label: "Large skip", cost: 300 },
+  };
+
+  // Picks a skip size from a rough scale value (m², wall face m², or step count).
+  function skipSizeFor(value, smallMax, mediumMax) {
+    if (value <= smallMax) return "small";
+    if (value <= mediumMax) return "medium";
+    return "large";
+  }
+
   const RATES = {
     patio: {
       label: "Patio / Paving",
@@ -47,16 +60,15 @@
     tidy: {
       label: "Garden Tidy-Up",
       sizes: {
-        small: { label: "Small", meta: "Courtyard / small yard", base: 150 },
-        medium: { label: "Medium", meta: "Average family garden", base: 300 },
-        large: { label: "Large", meta: "Large plot", base: 550 },
+        small: { label: "Small", meta: "Courtyard / small yard", base: 150, skipSize: "small" },
+        medium: { label: "Medium", meta: "Average family garden", base: 300, skipSize: "medium" },
+        large: { label: "Large", meta: "Large plot", base: 550, skipSize: "large" },
       },
       condition: {
         light: { label: "Light tidy", mult: 1 },
         moderate: { label: "Moderately overgrown", mult: 1.3 },
         heavy: { label: "Heavily overgrown", mult: 1.7 },
       },
-      wasteRemoval: 60,
     },
     renovation: {
       label: "Full Garden Renovation",
@@ -193,7 +205,8 @@
         numberField("area", "Approximate patio size (m²)", "e.g. 18", "Tip: multiply length × width in metres. E.g. 4m × 3m = 12m².")
       );
       dynamicFields.appendChild(optionCardGroup("tier", "Which finish?", RATES.patio.tiers, (t) => `From £${t.rate}/m²`));
-      dynamicFields.appendChild(toggleField("removal", "Remove an old patio / slabs first?"));
+      dynamicFields.appendChild(toggleField("removal", "Remove an old patio / slabs first?", "If yes, your price includes 1 skip for the rubble (£200–£300 depending on size)."));
+      dynamicFields.appendChild(toggleField("extraSkip", "Do you think you'll need more than one skip?", "Extra skips are charged at the same rate — only ask if you're unsure how much waste there'll be."));
       dynamicFields.appendChild(toggleField("difficultAccess", "Is access to the garden difficult (e.g. through the house, narrow gate)?"));
     }
 
@@ -201,18 +214,21 @@
       dynamicFields.appendChild(numberField("length", "Wall length (metres)", "e.g. 8"));
       dynamicFields.appendChild(numberField("height", "Wall height (metres)", "e.g. 1.2"));
       dynamicFields.appendChild(optionCardGroup("tier", "Wall type", RATES.wall.tiers, (t) => `From £${t.rate}/m²`));
-      dynamicFields.appendChild(toggleField("retaining", "Is this a retaining wall (holding back a bank / slope of earth)?"));
+      dynamicFields.appendChild(toggleField("retaining", "Is this a retaining wall (holding back a bank / slope of earth)?", "Retaining walls involve excavation — your price includes 1 skip for the spoil."));
+      dynamicFields.appendChild(toggleField("extraSkip", "Do you think you'll need more than one skip?", "Extra skips are charged at the same rate if more waste is generated than expected."));
     }
 
     if (svc === "steps") {
       dynamicFields.appendChild(numberField("count", "How many steps do you need?", "e.g. 5"));
       dynamicFields.appendChild(optionCardGroup("tier", "Material", RATES.steps.tiers, (t) => `From £${t.rate}/step`));
+      dynamicFields.appendChild(toggleField("extraSkip", "Do you think you'll need more than one skip?", "Steps involve digging into the bank, so your price already includes 1 skip. Extra skips are charged at the same rate."));
     }
 
     if (svc === "tidy") {
       dynamicFields.appendChild(optionCardGroup("size", "Garden size", RATES.tidy.sizes, (t) => `From £${t.base}`));
       dynamicFields.appendChild(optionCardGroup("condition", "Current condition", RATES.tidy.condition, () => ""));
-      dynamicFields.appendChild(toggleField("waste", "Do you need the green waste taken away?"));
+      dynamicFields.appendChild(toggleField("waste", "Do you need the green waste taken away?", "Includes 1 skip sized to your garden (£200 small / £250 medium / £300 large)."));
+      dynamicFields.appendChild(toggleField("extraSkip", "Do you think you'll need more than one skip?", "Common for heavily overgrown, large gardens. Extra skips are charged at the same rate."));
     }
 
     if (svc === "renovation") {
@@ -263,11 +279,12 @@
     return wrap;
   }
 
-  function toggleField(key, label) {
+  function toggleField(key, label, hint) {
     const wrap = document.createElement("div");
     wrap.className = "field-group";
     wrap.innerHTML = `
       <span class="field-label">${label}</span>
+      ${hint ? `<p class="field-hint">${hint}</p>` : ""}
       <div class="toggle-row">
         <label class="toggle-btn" data-key="${key}" data-val="yes"><input type="radio" name="tog_${key}" value="yes">Yes</label>
         <label class="toggle-btn" data-key="${key}" data-val="no"><input type="radio" name="tog_${key}" value="no">No</label>
@@ -346,10 +363,18 @@
       if (!a.area || !a.tier) return null;
       const rate = RATES.patio.tiers[a.tier].rate;
       let base = a.area * rate;
-      if (a.removal) base += a.area * RATES.patio.removalPerM2;
+      let skipNote = "";
+      if (a.removal) {
+        base += a.area * RATES.patio.removalPerM2;
+        const skipKey = skipSizeFor(a.area, 15, 30);
+        let skipTotal = SKIP_SIZES[skipKey].cost;
+        if (a.extraSkip) skipTotal += SKIP_SIZES[skipKey].cost;
+        base += skipTotal;
+        skipNote = ` · Includes ${SKIP_SIZES[skipKey].label.toLowerCase()}${a.extraSkip ? " + 1 extra skip" : ""}`;
+      }
       if (a.difficultAccess) base *= RATES.patio.difficultAccessMultiplier;
       base = Math.max(base, RATES.patio.minJob);
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.area}m² · ${RATES.patio.tiers[a.tier].label} finish` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.area}m² · ${RATES.patio.tiers[a.tier].label} finish${skipNote}` };
     }
 
     if (svc === "wall") {
@@ -357,17 +382,29 @@
       const area = a.length * a.height;
       const rate = RATES.wall.tiers[a.tier].rate;
       let base = area * rate;
-      if (a.retaining) base += area * RATES.wall.retainingExtra;
+      let skipNote = "";
+      if (a.retaining) {
+        base += area * RATES.wall.retainingExtra;
+        const skipKey = skipSizeFor(area, 10, 25);
+        let skipTotal = SKIP_SIZES[skipKey].cost;
+        if (a.extraSkip) skipTotal += SKIP_SIZES[skipKey].cost;
+        base += skipTotal;
+        skipNote = ` · Includes ${SKIP_SIZES[skipKey].label.toLowerCase()}${a.extraSkip ? " + 1 extra skip" : ""}`;
+      }
       base = Math.max(base, RATES.wall.minJob);
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${area.toFixed(1)}m² wall face · ${RATES.wall.tiers[a.tier].label}` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${area.toFixed(1)}m² wall face · ${RATES.wall.tiers[a.tier].label}${skipNote}` };
     }
 
     if (svc === "steps") {
       if (!a.count || !a.tier) return null;
       const rate = RATES.steps.tiers[a.tier].rate;
       let base = a.count * rate;
+      const skipKey = skipSizeFor(a.count, 4, 8);
+      let skipTotal = SKIP_SIZES[skipKey].cost;
+      if (a.extraSkip) skipTotal += SKIP_SIZES[skipKey].cost;
+      base += skipTotal;
       base = Math.max(base, RATES.steps.minJob);
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.count} steps · ${RATES.steps.tiers[a.tier].label}` };
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.15), note: `${a.count} steps · ${RATES.steps.tiers[a.tier].label} · Includes ${SKIP_SIZES[skipKey].label.toLowerCase()}${a.extraSkip ? " + 1 extra skip" : ""}` };
     }
 
     if (svc === "tidy") {
@@ -375,8 +412,15 @@
       const base0 = RATES.tidy.sizes[a.size].base;
       const mult = RATES.tidy.condition[a.condition].mult;
       let base = base0 * mult;
-      if (a.waste) base += RATES.tidy.wasteRemoval;
-      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.2), note: `${RATES.tidy.sizes[a.size].label} garden · ${RATES.tidy.condition[a.condition].label}` };
+      let skipNote = "";
+      if (a.waste) {
+        const skipKey = RATES.tidy.sizes[a.size].skipSize;
+        let skipTotal = SKIP_SIZES[skipKey].cost;
+        if (a.extraSkip) skipTotal += SKIP_SIZES[skipKey].cost;
+        base += skipTotal;
+        skipNote = ` · Includes ${SKIP_SIZES[skipKey].label.toLowerCase()}${a.extraSkip ? " + 1 extra skip" : ""}`;
+      }
+      return { low: roundTo5(base * 0.9), high: roundTo5(base * 1.2), note: `${RATES.tidy.sizes[a.size].label} garden · ${RATES.tidy.condition[a.condition].label}${skipNote}` };
     }
 
     if (svc === "renovation") {
@@ -386,7 +430,7 @@
       const spread = hi - lo;
       const low = lo + spread * scope.lo;
       const high = lo + spread * scope.hi;
-      return { low: roundTo5(low), high: roundTo5(high), note: `${RATES.renovation.sizes[a.size].label} garden · ${scope.label}` };
+      return { low: roundTo5(low), high: roundTo5(high), note: `${RATES.renovation.sizes[a.size].label} garden · ${scope.label} · Skip hire included` };
     }
 
     if (svc === "subscription") {
@@ -445,16 +489,16 @@
 
   function buildPrefillDescription(svc, a) {
     if (svc === "patio") {
-      return `I'd like a patio of approximately ${a.area}m², ${RATES.patio.tiers[a.tier].label.toLowerCase()} finish (${RATES.patio.tiers[a.tier].meta}).${a.removal ? " Old patio/slabs need removing." : ""}${a.difficultAccess ? " Access to the garden is difficult." : ""}`;
+      return `I'd like a patio of approximately ${a.area}m², ${RATES.patio.tiers[a.tier].label.toLowerCase()} finish (${RATES.patio.tiers[a.tier].meta}).${a.removal ? " Old patio/slabs need removing (please include a skip)." : ""}${a.extraSkip ? " I think more than one skip may be needed." : ""}${a.difficultAccess ? " Access to the garden is difficult." : ""}`;
     }
     if (svc === "wall") {
-      return `I'd like a garden wall approx ${a.length}m long × ${a.height}m high, ${RATES.wall.tiers[a.tier].label.toLowerCase()} (${RATES.wall.tiers[a.tier].meta}).${a.retaining ? " This is a retaining wall." : ""}`;
+      return `I'd like a garden wall approx ${a.length}m long × ${a.height}m high, ${RATES.wall.tiers[a.tier].label.toLowerCase()} (${RATES.wall.tiers[a.tier].meta}).${a.retaining ? " This is a retaining wall (please include a skip for the spoil)." : ""}${a.extraSkip ? " I think more than one skip may be needed." : ""}`;
     }
     if (svc === "steps") {
-      return `I need approximately ${a.count} garden steps, ${RATES.steps.tiers[a.tier].label.toLowerCase()} finish.`;
+      return `I need approximately ${a.count} garden steps, ${RATES.steps.tiers[a.tier].label.toLowerCase()} finish.${a.extraSkip ? " I think more than one skip may be needed for the spoil." : ""}`;
     }
     if (svc === "tidy") {
-      return `I need a ${RATES.tidy.sizes[a.size].label.toLowerCase()} garden tidy-up. Current condition: ${RATES.tidy.condition[a.condition].label.toLowerCase()}.${a.waste ? " Please include green waste removal." : ""}`;
+      return `I need a ${RATES.tidy.sizes[a.size].label.toLowerCase()} garden tidy-up. Current condition: ${RATES.tidy.condition[a.condition].label.toLowerCase()}.${a.waste ? " Please include green waste removal/skip." : ""}${a.extraSkip ? " I think more than one skip may be needed." : ""}`;
     }
     if (svc === "renovation") {
       const elements = (a.elements || []).join(", ");
