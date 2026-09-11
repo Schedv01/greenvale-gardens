@@ -265,7 +265,7 @@
       dynamicFields.appendChild(
         numberField("sections", "How many fence sections do you need?", "e.g. 6", "A section is a standard 6ft-wide panel. Not sure? We'll confirm the exact count from your photos.")
       );
-      dynamicFields.appendChild(optionCardGroup("tier", "Fence type", RATES.fencing.tiers, (t) => `From £${t.rate}/section`));
+      dynamicFields.appendChild(optionCardGroup("tier", "Fence type", RATES.fencing.tiers, (t) => `From £${Math.round(t.rate * 0.7)}/section`));
       dynamicFields.appendChild(optionCardGroup("height", "Fence height", RATES.fencing.heights, () => ""));
     }
 
