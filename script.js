@@ -78,13 +78,24 @@
         large: { label: "Large", meta: "Large plot", range: [80, 125] },
       },
     },
+    jetwash: {
+      label: "Jet Washing",
+      ratePerM2: 8,
+      minArea: 20,
+      minJob: 150,
+    },
   };
 
-  const fmt = (n) => "£" + Math.round(n / 5) * 5 >= 1000
-    ? "£" + (Math.round(n / 5) * 5).toLocaleString("en-GB")
-    : "£" + Math.round(n / 5) * 5;
-
   const roundTo5 = (n) => Math.round(n / 5) * 5;
+
+  // Renders "£150–£200" or, when low === high, just "£150".
+  const formatPriceRange = (est) => {
+    const suffix = est.perVisit ? " per visit" : "";
+    const low = est.low.toLocaleString("en-GB");
+    if (est.low === est.high) return `£${low}${suffix}`;
+    const high = est.high.toLocaleString("en-GB");
+    return `£${low}–£${high}${suffix}`;
+  };
 
   /* ============================================================
      STATE
@@ -227,6 +238,12 @@
         fortnightly: { label: "Fortnightly", meta: "Spring / summer growing season" },
         monthly: { label: "Monthly", meta: "Quieter autumn / winter upkeep" },
       }, () => ""));
+    }
+
+    if (svc === "jetwash") {
+      dynamicFields.appendChild(
+        numberField("area", "Approximate area to jet wash (m²)", "e.g. 25", `£${RATES.jetwash.ratePerM2}/m², minimum job £${RATES.jetwash.minJob}.`)
+      );
     }
 
     bindDynamicInputs(svc);
@@ -398,6 +415,17 @@
       };
     }
 
+    if (svc === "jetwash") {
+      if (!a.area) return null;
+      if (a.area < RATES.jetwash.minArea) {
+        return { low: RATES.jetwash.minJob, high: RATES.jetwash.minJob, note: `${a.area}m² jet washing · minimum job price` };
+      }
+      const base = a.area * RATES.jetwash.ratePerM2;
+      const low = Math.max(roundTo5(base * 0.9), RATES.jetwash.minJob);
+      const high = Math.max(roundTo5(base * 1.15), low);
+      return { low, high, note: `${a.area}m² jet washing` };
+    }
+
     return null;
   }
 
@@ -410,8 +438,7 @@
       toStep3Btn.disabled = true;
       return;
     }
-    const suffix = est.perVisit ? " per visit" : "";
-    estimateValue.textContent = `£${est.low.toLocaleString("en-GB")}–£${est.high.toLocaleString("en-GB")}${suffix}`;
+    estimateValue.textContent = formatPriceRange(est);
     estimateNote.textContent = est.note;
     toStep3Btn.disabled = false;
   }
@@ -428,10 +455,9 @@
     const svc = state.service;
     const est = state.estimate;
     const label = RATES[svc].label;
-    const suffix = est.perVisit ? " per visit" : "";
-    summaryBanner.textContent = `${label} — instant estimate: £${est.low.toLocaleString("en-GB")}–£${est.high.toLocaleString("en-GB")}${suffix} (${est.note})`;
+    summaryBanner.textContent = `${label} — instant estimate: ${formatPriceRange(est)} (${est.note})`;
     formSubjectField.value = `New ${label} quote request`;
-    estimateSummaryField.value = `${label} | Estimate: £${est.low}-£${est.high}${suffix} | ${est.note} | Answers: ${JSON.stringify(state.answers)}`;
+    estimateSummaryField.value = `${label} | Estimate: ${formatPriceRange(est)} | ${est.note} | Answers: ${JSON.stringify(state.answers)}`;
 
     if (!descriptionField.value) {
       descriptionField.value = buildPrefillDescription(svc, state.answers);
@@ -457,6 +483,9 @@
     }
     if (svc === "subscription") {
       return `I'd like ongoing garden maintenance for a ${RATES.subscription.sizes[a.size].label.toLowerCase()} garden, ${a.frequency} visits.`;
+    }
+    if (svc === "jetwash") {
+      return `I'd like approximately ${a.area}m² jet washed.`;
     }
     return "";
   }
@@ -561,10 +590,7 @@
       if (!res.ok) throw new Error("Request failed");
 
       const est = state.estimate;
-      const suffix = est && est.perVisit ? " per visit" : "";
-      successEstimate.textContent = est
-        ? `Your instant estimate: £${est.low.toLocaleString("en-GB")}–£${est.high.toLocaleString("en-GB")}${suffix}`
-        : "";
+      successEstimate.textContent = est ? `Your instant estimate: ${formatPriceRange(est)}` : "";
       successPhotoNote.textContent = state.photos.length ? ` and ${state.photos.length} photo${state.photos.length > 1 ? "s" : ""}` : "";
       showPanel("success");
       quoteForm.reset();
