@@ -95,11 +95,15 @@ ul,ol{ margin:0; padding:0; list-style:none; }
   backdrop-filter:blur(10px); border-bottom:1px solid var(--color-border);
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; height:72px; gap:var(--space-4); }
-.logo{ display:flex; align-items:center; gap:var(--space-2); flex-shrink:0; }
-.logo-text{ font-family:var(--font-heading); font-weight:700; font-size:18px; color:var(--color-primary-dark); }
-.logo-text span{ color:var(--color-accent); }
-.logo-text-light{ color:#fff; }
-.logo-text-light span{ color:var(--color-secondary); }
+.logo{ display:flex; align-items:center; gap:var(--space-3); flex-shrink:0; }
+.logo-mark{ display:flex; flex-shrink:0; }
+.logo-divider{ width:1px; height:28px; background:var(--color-border); flex-shrink:0; }
+.logo-divider-light{ background:rgba(255,255,255,.25); }
+.logo-text{ display:flex; flex-direction:column; line-height:1.1; }
+.logo-line-main{ font-family:var(--font-heading); font-weight:700; font-size:16px; letter-spacing:.05em; text-transform:uppercase; color:var(--color-primary-dark); }
+.logo-line-sub{ font-family:var(--font-heading); font-weight:600; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--color-secondary); margin-top:2px; }
+.logo-text-light .logo-line-main{ color:#fff; }
+.logo-text-light .logo-line-sub{ color:#B6E27A; }
 
 .main-nav{ display:flex; gap:var(--space-8); flex:1; justify-content:center; }
 .main-nav a{ font-weight:500; color:var(--color-text); font-size:15px; padding:var(--space-2) 0; border-bottom:2px solid transparent; transition:color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
