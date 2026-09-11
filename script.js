@@ -84,6 +84,21 @@
       minArea: 20,
       minJob: 150,
     },
+    fencing: {
+      label: "Fencing",
+      tiers: {
+        budget: { label: "Budget", meta: "Standard panel fencing", rate: 140 },
+        mid: { label: "Mid Tier", meta: "Heavier-duty panels", rate: 160 },
+        composite: { label: "Composite", meta: "Low-maintenance composite", rate: 400 },
+      },
+      // Prices above are per 6ft-wide section at 6ft height. Each foot shorter drops 10%.
+      heights: {
+        6: { label: "6ft", mult: 1 },
+        5: { label: "5ft", mult: 0.9 },
+        4: { label: "4ft", mult: 0.8 },
+        3: { label: "3ft", mult: 0.7 },
+      },
+    },
   };
 
   const roundTo5 = (n) => Math.round(n / 5) * 5;
@@ -244,6 +259,14 @@
       dynamicFields.appendChild(
         numberField("area", "Approximate area to jet wash (m²)", "e.g. 25", `£${RATES.jetwash.ratePerM2}/m², minimum job £${RATES.jetwash.minJob}.`)
       );
+    }
+
+    if (svc === "fencing") {
+      dynamicFields.appendChild(
+        numberField("sections", "How many fence sections do you need?", "e.g. 6", "A section is a standard 6ft-wide panel. Not sure? We'll confirm the exact count from your photos.")
+      );
+      dynamicFields.appendChild(optionCardGroup("tier", "Fence type", RATES.fencing.tiers, (t) => `From £${t.rate}/section`));
+      dynamicFields.appendChild(optionCardGroup("height", "Fence height", RATES.fencing.heights, () => ""));
     }
 
     bindDynamicInputs(svc);
@@ -426,6 +449,19 @@
       return { low, high, note: `${a.area}m² jet washing` };
     }
 
+    if (svc === "fencing") {
+      if (!a.sections || !a.tier || !a.height) return null;
+      const tier = RATES.fencing.tiers[a.tier];
+      const height = RATES.fencing.heights[a.height];
+      const pricePerSection = tier.rate * height.mult;
+      const base = a.sections * pricePerSection;
+      return {
+        low: roundTo5(base * 0.9),
+        high: roundTo5(base * 1.15),
+        note: `${a.sections} × ${height.label} ${tier.label.toLowerCase()} sections`,
+      };
+    }
+
     return null;
   }
 
@@ -486,6 +522,11 @@
     }
     if (svc === "jetwash") {
       return `I'd like approximately ${a.area}m² jet washed.`;
+    }
+    if (svc === "fencing") {
+      const tier = RATES.fencing.tiers[a.tier];
+      const height = RATES.fencing.heights[a.height];
+      return `I need approximately ${a.sections} fence sections, ${height.label} high, ${tier.label.toLowerCase()} (${tier.meta}).`;
     }
     return "";
   }
