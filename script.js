@@ -4,7 +4,7 @@
   /* ============================================================
      CONFIG — edit these to match your business
   ============================================================ */
-  const LEAD_EMAIL = "wayne.walsh1@gmail.com"; // where quote requests are sent
+  const LEAD_EMAIL = "info@greenvalegardens.co.uk"; // where quote requests are sent
   const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
   const MAX_PHOTOS = 5;
   const MAX_PHOTO_MB = 5;
