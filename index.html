@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenVale Gardens — Instant Garden Quote Tool</title>
+<meta name="description" content="Get an instant online estimate for patios, garden walls, steps, garden tidy-ups, full renovations and fortnightly maintenance. Upload photos for a fixed price quote.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315803D'/%3E%3Cpath d='M9 22c8 0 13-6 13-14-8 0-13 6-13 14Z' fill='%23fff'/%3E%3Cpath d='M9 22c0-5 2-9 6-11' stroke='%2315803D' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="logo" aria-label="GreenVale Gardens home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="30" height="30"><rect width="32" height="32" rx="8" fill="var(--color-primary)"/><path d="M9 22c8 0 13-6 13-14-8 0-13 6-13 14Z" fill="#fff"/><path d="M9 22c0-5 2-9 6-11" stroke="var(--color-primary)" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+      </span>
+      <span class="logo-text">GreenVale <span>Gardens</span></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#quote-tool">Get a Quote</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:01234567890" class="header-phone" aria-label="Call us on 01234 567890">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>01234 567 890</span>
+      </a>
+      <a href="#quote-tool" class="btn btn-accent btn-sm">Get Instant Quote</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Fully insured &amp; locally based</p>
+        <h1>Know your garden project price — <span class="text-accent">before</span> you pick up the phone.</h1>
+        <p class="hero-sub">Patios, walls, steps, tidy-ups, full renovations and fortnightly maintenance. Answer a few quick questions for an instant estimate, then send us photos for a confirmed fixed price — no site visit required to get started.</p>
+        <div class="hero-cta-row">
+          <a href="#quote-tool" class="btn btn-accent btn-lg">
+            Get my instant quote
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#services" class="btn btn-ghost btn-lg">See our services</a>
+        </div>
+        <ul class="hero-trust">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> No obligation estimate</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Fixed price confirmed by photo</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Reply within 24 hours</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card hero-card-price">
+          <span class="hero-card-label">Instant estimate</span>
+          <span class="hero-card-value">£1,840&ndash;£2,240</span>
+          <span class="hero-card-meta">18m&sup2; sandstone patio</span>
+        </div>
+        <svg class="hero-illustration" viewBox="0 0 480 420" fill="none">
+          <rect x="20" y="260" width="440" height="140" rx="16" fill="var(--color-muted)"/>
+          <rect x="60" y="290" width="360" height="90" rx="10" fill="var(--color-surface)" stroke="var(--color-border)" stroke-width="2"/>
+          <g stroke="var(--color-border)" stroke-width="2">
+            <line x1="60" y1="320" x2="420" y2="320"/>
+            <line x1="150" y1="290" x2="150" y2="380"/>
+            <line x1="240" y1="290" x2="240" y2="380"/>
+            <line x1="330" y1="290" x2="330" y2="380"/>
+          </g>
+          <path d="M40 260c40-160 360-160 400 0" stroke="var(--color-secondary)" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <circle cx="90" cy="150" r="34" fill="var(--color-secondary)"/>
+          <circle cx="150" cy="110" r="26" fill="var(--color-primary)"/>
+          <circle cx="380" cy="140" r="30" fill="var(--color-primary)"/>
+          <rect x="86" y="150" width="8" height="60" fill="#8B5E34"/>
+          <rect x="376" y="140" width="8" height="70" fill="#8B5E34"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOGOS / STATS STRIP ===================== -->
+  <section class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat"><strong>500+</strong><span>Gardens transformed</span></div>
+      <div class="stat"><strong>4.9/5</strong><span>Average customer rating</span></div>
+      <div class="stat"><strong>24hr</strong><span>Typical response time</span></div>
+      <div class="stat"><strong>£5m</strong><span>Public liability cover</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-plain">What we do</p>
+        <h2>Every service, one instant price tool</h2>
+        <p class="section-sub">Select any service below to jump straight into the price estimator — no forms to hunt for, no waiting on a callback.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <article class="service-card" data-service-link="patio">
+          <span class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+          </span>
+          <h3>Patios &amp; Paving</h3>
+          <p>Sandstone, porcelain, concrete or natural stone patios, fully prepared and laid.</p>
+          <span class="service-price">From £75/m&sup2;</span>
+          <span class="service-cta">Get a price <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </article>
+
+        <article class="service-card" data-service-link="wall">
+          <span class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="9"/><line x1="15" y1="9" x2="15" y2="15"/><line x1="9" y1="15" x2="9" y2="21"/></svg>
+          </span>
+          <h3>Garden Walls</h3>
+          <p>Block, brick or natural stone walls — including structural retaining walls.</p>
+          <span class="service-price">From £130/m&sup2;</span>
+          <span class="service-cta">Get a price <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </article>
+
+        <article class="service-card" data-service-link="steps">
+          <span class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21v-4h4v-4h4v-4h4V5h6"/></svg>
+          </span>
+          <h3>Garden Steps</h3>
+          <p>Safe, solid steps for sloped gardens — sleeper, brick or natural stone.</p>
+          <span class="service-price">From £160/step</span>
+          <span class="service-cta">Get a price <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </article>
+
+        <article class="service-card" data-service-link="tidy">
+          <span class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c4 3 7 7 7 12a7 7 0 0 1-14 0c0-5 3-9 7-12Z"/><path d="M12 22v-8"/></svg>
+          </span>
+          <h3>Garden Tidy-Ups</h3>
+          <p>One-off clearance, cutting back, weeding and green waste removal.</p>
+          <span class="service-price">From £150</span>
+          <span class="service-cta">Get a price <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </article>
+
+        <article class="service-card" data-service-link="renovation">
+          <span class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/><path d="M4 9h16"/></svg>
+          </span>
+          <h3>Full Garden Renovations</h3>
+          <p>Complete garden transformations — paving, planting, lawns and more.</p>
+          <span class="service-price">From £3,000</span>
+          <span class="service-cta">Get an estimate <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </article>
+
+        <article class="service-card" data-service-link="subscription">
+          <span class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h2M14 14h2M8 18h2"/></svg>
+          </span>
+          <h3>Fortnightly Maintenance</h3>
+          <p>Ongoing subscription visits to keep lawns, borders and hedges under control.</p>
+          <span class="service-price">From £65/month</span>
+          <span class="service-cta">Get a price <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section section-muted" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-plain">Simple process</p>
+        <h2>From estimate to fixed price in minutes</h2>
+      </div>
+      <ol class="steps-grid">
+        <li class="step-card">
+          <span class="step-num">1</span>
+          <h3>Answer a few questions</h3>
+          <p>Tell us the job, size and finish you're after in our instant quote tool.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-num">2</span>
+          <h3>See your instant estimate</h3>
+          <p>We calculate a live price range using our current material and labour rates.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-num">3</span>
+          <h3>Upload a few photos</h3>
+          <p>Add photos of the area and a short description — no site visit needed to start.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-num">4</span>
+          <h3>We confirm your fixed price</h3>
+          <p>We review your photos and reply within 24 hours with a confirmed fixed quote.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== QUOTE TOOL ===================== -->
+  <section class="section" id="quote-tool">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-plain">Instant quote tool</p>
+        <h2>Get your estimate now</h2>
+        <p class="section-sub">Figures are calculated from current UK average material and labour rates. Your exact fixed price is confirmed once we've reviewed your photos.</p>
+      </div>
+
+      <div class="quote-tool" id="quoteTool">
+
+        <!-- progress -->
+        <div class="quote-progress" role="tablist" aria-label="Quote steps">
+          <div class="progress-step is-active" data-progress="1">
+            <span class="progress-dot">1</span><span class="progress-label">Service</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-progress="2">
+            <span class="progress-dot">2</span><span class="progress-label">Details</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-progress="3">
+            <span class="progress-dot">3</span><span class="progress-label">Photos &amp; Send</span>
+          </div>
+        </div>
+
+        <!-- STEP 1: choose service -->
+        <div class="quote-panel is-active" data-panel="1" role="tabpanel" aria-live="polite">
+          <h3 class="quote-panel-title">What do you need doing?</h3>
+          <div class="service-select-grid">
+            <button type="button" class="service-select-card" data-service="patio">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+              <span>Patio / Paving</span>
+            </button>
+            <button type="button" class="service-select-card" data-service="wall">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="9"/><line x1="15" y1="9" x2="15" y2="15"/><line x1="9" y1="15" x2="9" y2="21"/></svg>
+              <span>Garden Wall</span>
+            </button>
+            <button type="button" class="service-select-card" data-service="steps">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21v-4h4v-4h4v-4h4V5h6"/></svg>
+              <span>Garden Steps</span>
+            </button>
+            <button type="button" class="service-select-card" data-service="tidy">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c4 3 7 7 7 12a7 7 0 0 1-14 0c0-5 3-9 7-12Z"/><path d="M12 22v-8"/></svg>
+              <span>Garden Tidy-Up</span>
+            </button>
+            <button type="button" class="service-select-card" data-service="renovation">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/><path d="M4 9h16"/></svg>
+              <span>Full Renovation</span>
+            </button>
+            <button type="button" class="service-select-card" data-service="subscription">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h2M14 14h2M8 18h2"/></svg>
+              <span>Fortnightly Maintenance</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: dynamic questions + live estimate -->
+        <div class="quote-panel" data-panel="2" role="tabpanel" aria-live="polite">
+          <div class="quote-step2-grid">
+            <div class="quote-questions">
+              <button type="button" class="link-back" data-action="back-to-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                Change service
+              </button>
+              <h3 class="quote-panel-title" id="step2Title">Tell us about the job</h3>
+              <div id="dynamicFields" class="dynamic-fields"></div>
+            </div>
+
+            <aside class="estimate-panel" aria-live="polite">
+              <span class="estimate-label">Your instant estimate</span>
+              <div class="estimate-value" id="estimateValue">—</div>
+              <p class="estimate-note" id="estimateNote">Answer the questions to see a live price.</p>
+              <button type="button" class="btn btn-accent btn-block" id="toStep3Btn" disabled>
+                Get my fixed price
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+              <p class="estimate-disclaimer">Estimate only. Your fixed price is confirmed after we review your photos.</p>
+            </aside>
+          </div>
+        </div>
+
+        <!-- STEP 3: contact + photos -->
+        <div class="quote-panel" data-panel="3" role="tabpanel" aria-live="polite">
+          <button type="button" class="link-back" data-action="back-to-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to job details
+          </button>
+          <h3 class="quote-panel-title">Send us photos for your fixed price</h3>
+
+          <div class="summary-banner" id="summaryBanner"></div>
+
+          <form id="quoteForm" novalidate>
+            <input type="hidden" name="_subject" id="formSubject" value="New garden quote request">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="estimate_summary" id="estimateSummaryField">
+            <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="fullName">Full name <span class="req">*</span></label>
+                <input type="text" id="fullName" name="name" required autocomplete="name">
+              </div>
+              <div class="form-field">
+                <label for="email">Email address <span class="req">*</span></label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone number <span class="req">*</span></label>
+                <input type="tel" id="phone" name="phone" required autocomplete="tel">
+              </div>
+              <div class="form-field">
+                <label for="postcode">Postcode <span class="req">*</span></label>
+                <input type="text" id="postcode" name="postcode" required autocomplete="postal-code">
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="description">Describe the work you'd like doing <span class="req">*</span></label>
+              <textarea id="description" name="description" rows="4" required placeholder="E.g. Remove old concrete patio and lay approx 18m² of grey sandstone paving, side access only via gate."></textarea>
+              <p class="field-help">This is prefilled with your answers — add anything else that's useful.</p>
+            </div>
+
+            <div class="form-field">
+              <label for="photos">Upload photos of the area</label>
+              <div class="upload-dropzone" id="dropzone" tabindex="0" role="button" aria-describedby="uploadHelp">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span><strong>Click to upload</strong> or drag photos here</span>
+                <span class="upload-limit">Up to 5 photos, 5MB each (JPG, PNG, HEIC)</span>
+                <input type="file" id="photos" name="attachment" accept="image/*" multiple hidden>
+              </div>
+              <p class="field-help" id="uploadHelp">Optional, but photos help us confirm your fixed price faster.</p>
+              <ul class="photo-previews" id="photoPreviews"></ul>
+            </div>
+
+            <label class="checkbox-field">
+              <input type="checkbox" id="consent" name="consent" required>
+              <span>I'm happy to be contacted about this quote by email or phone.</span>
+            </label>
+
+            <button type="submit" class="btn btn-accent btn-lg btn-block" id="submitBtn">
+              <span class="btn-label">Send my quote request</span>
+              <svg class="btn-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="9" stroke-opacity=".25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
+            </button>
+            <p class="form-status" id="formStatus" role="alert" aria-live="assertive"></p>
+          </form>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="quote-panel" data-panel="success" role="tabpanel" aria-live="polite">
+          <div class="success-state">
+            <span class="success-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <h3>Request sent — thank you!</h3>
+            <p>We've received your job details<span id="successPhotoNote"></span>. We'll review everything and reply with your confirmed fixed price within 24 hours.</p>
+            <p class="success-estimate" id="successEstimate"></p>
+            <button type="button" class="btn btn-ghost" id="startOverBtn">Start a new quote</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE US ===================== -->
+  <section class="section section-muted">
+    <div class="container why-grid">
+      <div class="why-copy">
+        <p class="eyebrow eyebrow-plain">Why homeowners choose us</p>
+        <h2>Straightforward pricing, no pushy sales visits</h2>
+        <p class="section-sub">We built this tool because we were tired of homeowners waiting days for a callback just to get a rough number. Get your estimate now, and a confirmed fixed price without anyone needing to stand in your garden first.</p>
+        <ul class="why-list">
+          <li><span class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/></svg></span><div><strong>Fully insured</strong><span>£5m public liability cover on every job</span></div></li>
+          <li><span class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><strong>Fixed price guarantee</strong><span>The price we confirm is the price you pay</span></div></li>
+          <li><span class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><strong>Fast turnaround</strong><span>Most quotes confirmed within 24 hours</span></div></li>
+          <li><span class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a2 2 0 1 1-3.2-2.4"/></svg></span><div><strong>Local &amp; reliable</strong><span>Based in the area, with real local reviews</span></div></li>
+        </ul>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars" aria-label="5 out of 5 stars">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p>&ldquo;The instant estimate was spot on once they'd seen the photos — no haggling, no surprise costs. The new patio was finished in three days.&rdquo;</p>
+        <span class="testimonial-name">Sarah M. — Patio &amp; Steps</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section" id="faq">
+    <div class="container faq-container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-plain">Common questions</p>
+        <h2>Frequently asked questions</h2>
+      </div>
+
+      <div class="accordion">
+        <details class="accordion-item" open>
+          <summary>How accurate is the instant estimate?</summary>
+          <p>Our tool uses current UK average material and labour rates for your chosen job type and size, so it's a genuinely useful ballpark. Because every garden has different access, ground conditions and finishes, we always confirm an exact fixed price once we've seen your photos and description.</p>
+        </details>
+        <details class="accordion-item">
+          <summary>Do I have to upload photos?</summary>
+          <p>Photos are optional but strongly recommended — they let us confirm a fixed price without needing to visit first. If you'd rather not upload photos, we'll follow up to arrange a quick site visit instead.</p>
+        </details>
+        <details class="accordion-item">
+          <summary>What happens after I submit my request?</summary>
+          <p>Your job details and photos are sent straight to our team. We typically reply by email or phone within 24 hours with your confirmed fixed price and, if you're happy, a proposed start date.</p>
+        </details>
+        <details class="accordion-item">
+          <summary>How does the fortnightly maintenance subscription work?</summary>
+          <p>You choose a garden size and visit frequency in the quote tool. We'll confirm a fixed monthly price, visit on a regular schedule (fortnightly through the growing season, or monthly over autumn/winter), and you can pause or cancel with notice.</p>
+        </details>
+        <details class="accordion-item">
+          <summary>What areas do you cover?</summary>
+          <p>Enter your postcode in the quote form and we'll confirm straight away whether you're within our usual service area — we also take on nearby jobs by arrangement.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="final-cta">
+    <div class="container final-cta-inner">
+      <h2>Ready to see what your project costs?</h2>
+      <p>It takes less than two minutes to get your instant estimate.</p>
+      <a href="#quote-tool" class="btn btn-accent btn-lg">Start my instant quote</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer" id="contact">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="#top" class="logo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="var(--color-secondary)"/><path d="M9 22c8 0 13-6 13-14-8 0-13 6-13 14Z" fill="#fff"/><path d="M9 22c0-5 2-9 6-11" stroke="var(--color-secondary)" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+        </span>
+        <span class="logo-text logo-text-light">GreenVale <span>Gardens</span></span>
+      </a>
+      <p>Gardening, landscaping and hardscaping services with transparent, fixed-price quotes.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:01234567890">01234 567 890</a></li>
+        <li><a href="mailto:wayne.walsh1@gmail.com">wayne.walsh1@gmail.com</a></li>
+        <li>Serving the North West &amp; surrounding areas</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#quote-tool" data-service-link="patio">Patios &amp; Paving</a></li>
+        <li><a href="#quote-tool" data-service-link="wall">Garden Walls</a></li>
+        <li><a href="#quote-tool" data-service-link="steps">Garden Steps</a></li>
+        <li><a href="#quote-tool" data-service-link="tidy">Garden Tidy-Ups</a></li>
+        <li><a href="#quote-tool" data-service-link="renovation">Full Renovations</a></li>
+        <li><a href="#quote-tool" data-service-link="subscription">Fortnightly Maintenance</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#quote-tool">Get a quote</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; <span id="year"></span> GreenVale Gardens. All rights reserved.</p>
+    <p>Prices are estimates based on UK average rates and are confirmed after photo review.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
