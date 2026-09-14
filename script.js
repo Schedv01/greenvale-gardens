@@ -630,6 +630,10 @@
 
       if (!res.ok) throw new Error("Request failed");
 
+      if (typeof gtag === "function") {
+        gtag("event", "conversion", { send_to: "AW-18450822856/_XGlCNmCtvccEMjthN5E" });
+      }
+
       const est = state.estimate;
       successEstimate.textContent = est ? `Your instant estimate: ${formatPriceRange(est)}` : "";
       successPhotoNote.textContent = state.photos.length ? ` and ${state.photos.length} photo${state.photos.length > 1 ? "s" : ""}` : "";
