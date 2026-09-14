@@ -1,1 +1,7 @@
 .claude/
+
+# Raw source photos/videos (unedited originals) — only assets/photos/ (curated, renamed) is published
+assets/*.jpg
+assets/*.jpeg
+assets/*.png
+assets/*.mp4

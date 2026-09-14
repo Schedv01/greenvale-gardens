@@ -145,7 +145,7 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .hero-trust svg{ color:var(--color-secondary); flex-shrink:0; }
 
 .hero-visual{ position:relative; }
-.hero-illustration{ width:100%; height:auto; }
+.hero-photo{ width:100%; height:auto; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); }
 .hero-card{
   position:absolute; top:-8px; right:6%; background:var(--color-surface); border:1px solid var(--color-border);
   border-radius:var(--radius-md); padding:var(--space-4) var(--space-5); box-shadow:var(--shadow-lg); z-index:2;
@@ -173,10 +173,12 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-5); }
 .service-card{
   background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg);
-  padding:var(--space-6); cursor:pointer; transition:transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease);
-  display:flex; flex-direction:column;
+  cursor:pointer; transition:transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease);
+  display:flex; flex-direction:column; overflow:hidden;
 }
 .service-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--color-secondary); }
+.service-card-photo{ width:100%; height:170px; object-fit:cover; display:block; background:var(--color-muted); }
+.service-card-body{ padding:var(--space-6); display:flex; flex-direction:column; flex:1; }
 .service-icon{ width:52px; height:52px; border-radius:var(--radius-md); background:var(--color-muted); color:var(--color-primary); display:flex; align-items:center; justify-content:center; margin-bottom:var(--space-4); }
 .service-card h3{ font-size:19px; margin-bottom:6px; }
 .service-card p{ font-size:14.5px; margin-bottom:var(--space-4); flex:1; }
@@ -200,6 +202,12 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .step-card p{ font-size:14.5px; }
 @media (max-width:900px){ .steps-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){ .steps-grid{ grid-template-columns:1fr; } }
+
+/* ===================== GALLERY ===================== */
+.gallery-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:var(--space-4); }
+.gallery-grid img{ width:100%; height:180px; object-fit:cover; border-radius:var(--radius-md); border:1px solid var(--color-border); }
+@media (max-width:900px){ .gallery-grid{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:560px){ .gallery-grid{ grid-template-columns:1fr 1fr; } }
 
 /* ===================== QUOTE TOOL ===================== */
 .quote-tool{
